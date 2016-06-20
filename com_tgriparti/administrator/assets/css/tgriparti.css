@@ -1,0 +1,57 @@
+.icon-48-condomini {
+      background-image: url(../images/l_condomini.png);
+      padding-left:60px!important;
+}
+
+.icon-48-condominio {
+      background-image: url(../images/l_condomini.png);
+      padding-left:60px!important;
+}
+
+.color-box-condomini { 
+      float: left;      width: 15px;      height: 15px;      margin-right: 5px;      border: 1px solid rgba(0, 0, 0, .2);}
+
+.icon-48-nominativi {
+      background-image: url(../images/l_nominativi.png);
+      padding-left:60px!important;
+}
+
+.icon-48-nominativo {
+      background-image: url(../images/l_nominativi.png);
+      padding-left:60px!important;
+}
+
+.color-box-nominativi { 
+      float: left;      width: 15px;      height: 15px;      margin-right: 5px;      border: 1px solid rgba(0, 0, 0, .2);}
+
+.icon-48-ricevute {
+      background-image: url(../images/l_ricevute.png);
+      padding-left:60px!important;
+}
+
+.icon-48-ricevuta {
+      background-image: url(../images/l_ricevute.png);
+      padding-left:60px!important;
+}
+
+.color-box-ricevute { 
+      float: left;      width: 15px;      height: 15px;      margin-right: 5px;      border: 1px solid rgba(0, 0, 0, .2);}
+
+.icon-48-letture {
+      background-image: url(../images/l_letture.png);
+      padding-left:60px!important;
+}
+
+.icon-48-lettura {
+      background-image: url(../images/l_letture.png);
+      padding-left:60px!important;
+}
+
+.color-box-letture { 
+      float: left;      width: 15px;      height: 15px;      margin-right: 5px;      border: 1px solid rgba(0, 0, 0, .2);}
+
+
+
+.other-filters{
+    padding: 0 14px;
+}

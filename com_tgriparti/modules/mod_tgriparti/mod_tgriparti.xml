@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0" method="upgrade" client="site">
+    <name>MOD_TGRIPARTI_NAME</name>
+    <creationDate>2016-06-20</creationDate>
+    <copyright>2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <author>Todaro Giovanni</author>
+    <authorEmail>Info@todarogiovanni.eu</authorEmail>
+    <authorUrl>http://www.todarogiovanni.eu</authorUrl>
+    <version>CVS: 1.0.0</version>
+    <description>MOD_TGRIPARTI_DESCRIPTION</description>
+    
+    <files>
+        <filename module="mod_tgriparti">mod_tgriparti.php</filename>
+        <filename>helper.php</filename>
+        <filename>index.html</filename>
+        <folder>tmpl</folder>
+    </files>
+    <languages folder="../../languages/modules/mod_tgriparti">
+        
+			<language tag="en-GB">en-GB/en-GB.mod_tgriparti.ini</language>
+			<language tag="en-GB">en-GB/en-GB.mod_tgriparti.sys.ini</language>
+			<language tag="it-IT">it-IT/it-IT.mod_tgriparti.ini</language>
+			<language tag="it-IT">it-IT/it-IT.mod_tgriparti.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset 
+                name="content_type" 
+                label="MOD_TGRIPARTI_CONTENT_TYPE_TAB_LBL"
+                description="MOD_TGRIPARTI_CONTENT_TYPE_TAB_DESC">
+                <field
+                    name="content_type" type="list"
+                    label="MOD_TGRIPARTI_CONTENT_TYPE_LBL"
+                    description="MOD_TGRIPARTI_CONTENT_TYPE_DESC">
+                    <option value="blank">MOD_TGRIPARTI_CUSTOM_CONTENT</option>
+                    <option value="list">MOD_TGRIPARTI_LIST</option>
+                    <option value="item">MOD_TGRIPARTI_ITEM</option>
+                </field>
+            </fieldset>
+            <fieldset 
+                name="blank_content" 
+                label="MOD_TGRIPARTI_CUSTOM_CONTENT_TAB_LBL"
+                description="MOD_TGRIPARTI_CUSTOM_CONTENT_TAB_DESC">
+                <field 
+                    name="html_content" type="editor" filter="safehtml"
+                    label="MOD_TGRIPARTI_HTML_LBL"
+                    description="MOD_TGRIPARTI_HTML_DESC" />
+            </fieldset>
+            <fieldset 
+                name="list_content" 
+                label="MOD_TGRIPARTI_LIST_CONTENT_TAB_LBL"
+                description="MOD_TGRIPARTI_LIST_CONTENT_TAB_DESC">
+                <field
+                    name="table" type="list"
+                    label="MOD_TGRIPARTI_TABLE_LBL"
+                    description="MOD_TGRIPARTI_TABLE_DESC">
+                    
+	<option value="#__tgriparti_condominio">#__tgriparti_condominio</option>
+	<option value="#__tgriparti_nominativo">#__tgriparti_nominativo</option>
+	<option value="#__tgriparti_ricevuta">#__tgriparti_ricevuta</option>
+	<option value="#__tgriparti_lettura">#__tgriparti_lettura</option>
+                </field>
+                <field 
+                    name="field" type="groupedlist" default=""
+                    label="MOD_TGRIPARTI_FIELD_LBL"
+                    description="MOD_TGRIPARTI_FIELD_DESC">
+                    
+	<group label="#__tgriparti_condominio">
+		<option value="id">id</option>
+		<option value="created_by">created_by</option>
+		<option value="modified_by">modified_by</option>
+		<option value="via">via</option>
+		<option value="cap">cap</option>
+		<option value="citta">citta</option>
+	</group>
+	<group label="#__tgriparti_nominativo">
+		<option value="id">id</option>
+		<option value="created_by">created_by</option>
+		<option value="modified_by">modified_by</option>
+		<option value="nome">nome</option>
+		<option value="condomino">condomino</option>
+	</group>
+	<group label="#__tgriparti_ricevuta">
+		<option value="id">id</option>
+		<option value="created_by">created_by</option>
+		<option value="modified_by">modified_by</option>
+		<option value="nome">nome</option>
+		<option value="descrizione">descrizione</option>
+		<option value="costo">costo</option>
+		<option value="data">data</option>
+		<option value="condominio">condominio</option>
+	</group>
+	<group label="#__tgriparti_lettura">
+		<option value="id">id</option>
+		<option value="created_by">created_by</option>
+		<option value="modified_by">modified_by</option>
+		<option value="nominativo">nominativo</option>
+		<option value="lettura">lettura</option>
+		<option value="ripartizione">ripartizione</option>
+	</group>
+                </field>
+                <field 
+                    name="offset" type="text" default="0" filter="uint" class="input-small"
+                    label="MOD_TGRIPARTI_OFFSET_LBL"
+                    description="MOD_TGRIPARTI_OFFSET_DESC" />
+                <field 
+                    name="limit" type="text" default="10" filter="uint" class="input-small"
+                    label="MOD_TGRIPARTI_LIMIT_LBL"
+                    description="MOD_TGRIPARTI_LIMIT_DESC" />
+            </fieldset>
+            <fieldset 
+                name="item_content" 
+                label="MOD_TGRIPARTI_ITEM_CONTENT_TAB"
+                description="MOD_TGRIPARTI_ITEM_CONTENT_TAB_DESC">
+                <field
+                    name="item_table" type="list"
+                    label="MOD_TGRIPARTI_TABLE_LBL"
+                    description="MOD_TGRIPARTI_TABLE_DESC">
+                    
+	<option value="#__tgriparti_condominio">#__tgriparti_condominio</option>
+	<option value="#__tgriparti_nominativo">#__tgriparti_nominativo</option>
+	<option value="#__tgriparti_ricevuta">#__tgriparti_ricevuta</option>
+	<option value="#__tgriparti_lettura">#__tgriparti_lettura</option>
+                </field>
+                <field 
+                    name="item_id" type="text" filter="uint" class="input-small"
+                    label="MOD_TGRIPARTI_ITEM_ID_LBL"
+                    description="MOD_TGRIPARTI_ITEM_ID_DESC"
+                />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<component>
+  <table action="change" old_name="#__tgriparti_ripartizione" new_name="#__tgriparti_ricevuta" table_name="#__tgriparti_ricevuta" storage_engine="" collation="utf8mb4_unicode_ci">
+    <field field_name="id" field_type="INT" field_length="11" is_autoincrement="1" index="primary" description=""/>
+    <field field_name="ordering" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="state" field_type="TINYINT" field_length="1" index="index" description=""/>
+    <field field_name="checked_out" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="checked_out_time" field_type="DATETIME" description=""/>
+    <field field_name="created_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="modified_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field action="add" field_name="nome" field_type="VARCHAR" field_length="255" description=""/>
+    <field action="add" field_name="descrizione" field_type="TEXT" description=""/>
+    <field action="add" field_name="costo" field_type="FLOAT" description="Costo totale in euro da ripartire"/>
+    <field action="add" field_name="data" field_type="DATE" description=""/>
+    <field action="add" field_name="condominio" field_type="INT" field_length="11" description="Seleziona il condomino relativo"/>
+  </table>
+  <table action="add" table_name="#__tgriparti_nominativo" storage_engine="" collation="utf8mb4_unicode_ci">
+    <field field_name="id" field_type="INT" field_length="11" is_autoincrement="1" index="primary" description=""/>
+    <field field_name="ordering" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="state" field_type="TINYINT" field_length="1" index="index" description=""/>
+    <field field_name="checked_out" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="checked_out_time" field_type="DATETIME" description=""/>
+    <field field_name="created_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="modified_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field action="add" field_name="nome" field_type="VARCHAR" field_length="255" description=""/>
+    <field action="add" field_name="condomino" field_type="INT" field_length="11" description="Condomino"/>
+  </table>
+  <table action="change" old_name="#__tgriparti_ricevuta" new_name="#__tgriparti_lettura" table_name="#__tgriparti_lettura" storage_engine="" collation="utf8mb4_unicode_ci">
+    <field field_name="id" field_type="INT" field_length="11" is_autoincrement="1" index="primary" description=""/>
+    <field field_name="ordering" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="state" field_type="TINYINT" field_length="1" index="index" description=""/>
+    <field field_name="checked_out" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="checked_out_time" field_type="DATETIME" description=""/>
+    <field field_name="created_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="modified_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field action="add" field_name="nominativo" field_type="INT" field_length="11" description=""/>
+    <field action="add" field_name="lettura" field_type="VARCHAR" field_length="255" description=""/>
+    <field action="add" field_name="ripartizione" field_type="INT" field_length="11" description=""/>
+  </table>
+  <table action="add" table_name="#__tgriparti_condominio" storage_engine="" collation="utf8mb4_unicode_ci">
+    <field field_name="id" field_type="INT" field_length="11" is_autoincrement="1" index="primary" description=""/>
+    <field field_name="ordering" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="state" field_type="TINYINT" field_length="1" index="index" description=""/>
+    <field field_name="checked_out" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="checked_out_time" field_type="DATETIME" description=""/>
+    <field field_name="created_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="modified_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field action="change" old_name="nome" new_name="via" field_name="via" field_type="VARCHAR" field_length="50" description="Inserisci l'indirizzo del condominio solo la via ed il numero civico in modo da avere un nome univoco"/>
+    <field action="add" field_name="cap" field_type="VARCHAR" field_length="255" description=""/>
+    <field action="add" field_name="citta" field_type="VARCHAR" field_length="255" description=""/>
+  </table>
+</component>

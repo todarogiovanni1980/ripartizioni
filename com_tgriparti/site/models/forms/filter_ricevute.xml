@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field name="search" type="text" hint="COM_TGRIPARTI_SEARCH_FILTER_SUBMIT"
+               label="COM_USERS_FILTER_SEARCH_DESC"
+               class="js-stools-search-string" />
+
+        <field name="data_from_dateformat" label="COM_TGRIPARTI_LIST_LBL_RICEVUTA_DATA_FILTER_FROM" type="calendar" onchange="this.form.submit();" filter="safehtml" class="inputbox"/>
+<field name="data_to_dateformat" label="COM_TGRIPARTI_LIST_LBL_RICEVUTA_DATA_FILTER_TO" type="calendar" onchange="this.form.submit();" filter="safehtml" class="inputbox"/>
+<field name="condominio" type="sql" query="SELECT 0 AS `id`, 'COM_TGRIPARTI_RICEVUTE_CONDOMINIO_FILTER' AS `val` UNION SELECT `id`,  CONCAT (`via`, ' ', `cap`, ' ', `citta`) AS val FROM `#__tgriparti_condominio`" key_field="id" value_field="val" class="inputbox" onchange="this.form.submit()" translate="true"/>
+
+
+    </fields>
+</form>

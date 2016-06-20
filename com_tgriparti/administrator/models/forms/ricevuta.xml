@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+  <fieldset>
+    <field name="id" type="text" readonly="true" class="readonly" default="0" description="JGLOBAL_FIELD_ID_DESC"/>
+    <field name="ordering"/>
+    <field name="state" default="1" type="list" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="inputbox" size="1">
+      <option value="1">JPUBLISHED</option>
+      <option value="0">JUNPUBLISHED</option>
+      <option value="2">JARCHIVED</option>
+      <option value="-2">JTRASHED</option>
+    </field>
+    <field name="checked_out" type="hidden" filter="unset"/>
+    <field name="checked_out_time" default="0000-00-00 00:00:00" type="hidden" filter="unset"/>
+    <field name="created_by" default="0" label="COM_TGRIPARTI_FORM_LBL_RICEVUTA_CREATED_BY" description="COM_TGRIPARTI_FORM_DESC_RICEVUTA_CREATED_BY" hidden="true" hint="COM_TGRIPARTI_FORM_LBL_RICEVUTA_CREATED_BY"/>
+    <field name="modified_by" default="0" label="COM_TGRIPARTI_FORM_LBL_RICEVUTA_MODIFIED_BY" description="COM_TGRIPARTI_FORM_DESC_RICEVUTA_MODIFIED_BY" hidden="true" hint="COM_TGRIPARTI_FORM_LBL_RICEVUTA_MODIFIED_BY"/>
+    <field name="nome" type="text" filter="safehtml" label="COM_TGRIPARTI_FORM_LBL_RICEVUTA_NOME" description="COM_TGRIPARTI_FORM_DESC_RICEVUTA_NOME" hint="COM_TGRIPARTI_FORM_LBL_RICEVUTA_NOME"/>
+    <field name="descrizione" type="textarea" filter="safehtml" label="COM_TGRIPARTI_FORM_LBL_RICEVUTA_DESCRIZIONE" description="COM_TGRIPARTI_FORM_DESC_RICEVUTA_DESCRIZIONE" hint="COM_TGRIPARTI_FORM_LBL_RICEVUTA_DESCRIZIONE"/>
+    <field name="costo" label="COM_TGRIPARTI_FORM_LBL_RICEVUTA_COSTO" description="COM_TGRIPARTI_FORM_DESC_RICEVUTA_COSTO" hint="COM_TGRIPARTI_FORM_LBL_RICEVUTA_COSTO"/>
+    <field name="data" type="calendar" class="inputbox" label="COM_TGRIPARTI_FORM_LBL_RICEVUTA_DATA" description="COM_TGRIPARTI_FORM_DESC_RICEVUTA_DATA" hint="COM_TGRIPARTI_FORM_LBL_RICEVUTA_DATA"/>
+    <field name="condominio" type="foreignkey" label="COM_TGRIPARTI_FORM_LBL_RICEVUTA_CONDOMINIO" description="COM_TGRIPARTI_FORM_DESC_RICEVUTA_CONDOMINIO" class="inputbox" input_type="list" table="#__tgriparti_condominio" key_field="id" value_multiple="1" value_field_multiple="via,cap,citta" value_field="fk_value" default="0"/>
+    <field name="version_note" type="text" label="JGLOBAL_FIELD_VERSION_NOTE_LABEL" description="JGLOBAL_FIELD_VERSION_NOTE_DESC" class="inputbox" size="45" labelclass="control-label"/>
+    <field name="filter_data_from_dateformat" label="COM_TGRIPARTI_LIST_LBL_RICEVUTA_DATA_FILTER_FROM" type="calendar" onchange="this.form.submit();" filter="safehtml" class="inputbox"/>
+    <field name="filter_data_to_dateformat" label="COM_TGRIPARTI_LIST_LBL_RICEVUTA_DATA_FILTER_TO" type="calendar" onchange="this.form.submit();" filter="safehtml" class="inputbox"/>
+    <field name="filter_condominio" type="sql" query="SELECT 0 AS `id`, 'COM_TGRIPARTI_RICEVUTE_CONDOMINIO_FILTER' AS `val` UNION SELECT `id`,  CONCAT (`via`, ' ', `cap`, ' ', `citta`) AS val FROM `#__tgriparti_condominio`" key_field="id" value_field="val" class="inputbox" onchange="this.form.submit()" translate="true"/>
+  </fieldset>
+</form>
