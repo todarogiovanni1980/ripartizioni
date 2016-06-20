@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+    <name>com_tgriparti</name>
+    <creationDate>2016-06-20</creationDate>
+    <copyright>2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <author>Todaro Giovanni</author>
+    <authorEmail>Info@todarogiovanni.eu</authorEmail>
+    <authorUrl>http://www.todarogiovanni.eu</authorUrl>
+    <version>1.0.0</version>
+    <description>Gestione Ripartizioni condominiali spese acqua per amministratori di condominio</description>
+
+    <scriptfile>script.php</scriptfile>
+
+    <install> <!-- Runs on install -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <update> <!-- Runs on update -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/update.mysql.utf8.sql</file>
+        </sql>
+    </update>
+    <uninstall> <!-- Runs on uninstall -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    <files folder="site">
+        <filename>index.html</filename>
+        <filename>tgriparti.php</filename>
+        <filename>controller.php</filename>
+        <filename>router.php</filename>
+        <folder>views</folder>
+        <folder>models</folder>
+        <folder>controllers</folder>
+        <folder>helpers</folder>
+    </files>
+    <media destination="com_tgriparti" folder="media">
+        <folder>js</folder>
+        <folder>css</folder>
+    </media>
+    <languages folder="languages/site">
+
+			<language tag="en-GB">en-GB/en-GB.com_tgriparti.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_tgriparti.ini</language>
+    </languages>
+    <administration>
+        <menu img="media/com_tgriparti/images/s_com_tgriparti.png" >COM_TGRIPARTI</menu>
+        <submenu>
+
+			<menu link="option=com_tgriparti&amp;view=condomini" view="condomini" img="media/com_tgriparti/images/s_condomini.png" alt="Tgriparti/Condomini">COM_TGRIPARTI_TITLE_CONDOMINI</menu>
+
+			<menu link="option=com_tgriparti&amp;view=nominativi" view="nominativi" img="media/com_tgriparti/images/s_nominativi.png" alt="Tgriparti/Nominativi">COM_TGRIPARTI_TITLE_NOMINATIVI</menu>
+
+			<menu link="option=com_tgriparti&amp;view=ricevute" view="ricevute" img="media/com_tgriparti/images/s_ricevute.png" alt="Tgriparti/Ricevute">COM_TGRIPARTI_TITLE_RICEVUTE</menu>
+
+			<menu link="option=com_tgriparti&amp;view=letture" view="letture" img="media/com_tgriparti/images/s_letture.png" alt="Tgriparti/Letture">COM_TGRIPARTI_TITLE_LETTURE</menu>
+
+			<menu link="option=com_tgriparti&amp;view=ripartizioni" view="ripartizioni" img="media/com_tgriparti/images/s_letture.png" alt="Tgriparti/Ripartizioni">COM_TGRIPARTI_TITLE_RIPARTIZIONI</menu>
+
+        </submenu>
+        <files folder="administrator">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <filename>controller.php</filename>
+            <filename>index.html</filename>
+            <filename>tgriparti.php</filename>
+            <folder>controllers</folder>
+            <folder>assets</folder>
+            <folder>helpers</folder>
+            <folder>models</folder>
+            <folder>sql</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
+        </files>
+        <languages folder="languages/administrator">
+
+			<language tag="en-GB">en-GB/en-GB.com_tgriparti.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_tgriparti.sys.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_tgriparti.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_tgriparti.sys.ini</language>
+        </languages>
+    </administration>
+    <config>
+        <fields name="params">
+            <fieldset name="component">
+                <field name="save_history" default="0" />
+            </fieldset>
+        </fields>
+    </config>
+    <plugins>
+        <plugin group="search" plugin="tgriparti"/>
+    </plugins>
+    <modules>
+		<module module="mod_tgriparti" />
+	</modules>
+</extension>
