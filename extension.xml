@@ -1,0 +1,18 @@
+<update>
+   <name>Ripartizioni Codominiali</name>
+   <description>Sistema di gestione delle ripartizioni condominiali</description>
+   <element>com_tgriparti</element>
+   <type>component</type>
+   <version>1.0.1</version>
+   <infourl title="Ripartizioni Condominiali">https://github.com/todarogiovanni1980/ripartizioni</infourl>
+   <downloads>
+       <downloadurl type="full" format="zip">https://github.com/todarogiovanni1980/ripartizioni/blob/master/com_tgriparti.zip</downloadurl>
+   </downloads>
+   <tags>
+       <tag>stable</tag>
+   </tags>
+   <maintainer>Todaro Giovanni</maintainer>
+   <maintainerurl>http://www.todarogiovanni.eu</maintainerurl>
+
+   <targetplatform name="joomla" version="3.*"/>
+</update>

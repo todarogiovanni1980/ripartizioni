@@ -97,4 +97,7 @@
     <modules>
 		<module module="mod_tgriparti" />
 	</modules>
+  <updateservers>
+    <server type="extension" priority="2" name="Aggiornamento Ripartizioni">https://github.com/todarogiovanni1980/ripartizioni/blob/master/extension.xml</server>
+ </updateservers>
 </extension>
