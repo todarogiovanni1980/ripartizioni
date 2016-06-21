@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    CVS: 1.0.0
+ * @version    CVS: 1.0.2
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -24,6 +24,13 @@ $canCheckin = $user->authorise('core.manage', 'com_tgriparti');
 $canChange  = $user->authorise('core.edit.state', 'com_tgriparti');
 $canDelete  = $user->authorise('core.delete', 'com_tgriparti');
 ?>
+
+
+<?php if ( $this->params->get('show_page_heading')!=0) : ?>
+    <h1>
+<?php echo $this->escape($this->params->get('page_heading')); ?>
+    </h1>
+<?php endif; ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_tgriparti&view=nominativi'); ?>" method="post"
       name="adminForm" id="adminForm">
