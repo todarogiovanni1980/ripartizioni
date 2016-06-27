@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version    CVS: 1.0.0
+ * @version    CVS: 1.0.3
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -45,6 +45,11 @@ class TgripartiViewCondominio extends JViewLegacy
 		$this->item   = $this->get('Data');
 		$this->params = $app->getParams('com_tgriparti');
 
+		//istanza della classe modello ricevute
+		JModelLegacy::addIncludePath(JPATH_SITE.'/components/com_tgriparti/models');
+		$modelRicevute = JModelLegacy::getInstance( 'ricevute', 'tgripartiModel' );
+		$this->ricevute = $modelRicevute->getItems();
+
 		if (!empty($this->item))
 		{
 			$this->form = $this->get('Form');
@@ -56,7 +61,7 @@ class TgripartiViewCondominio extends JViewLegacy
 			throw new Exception(implode("\n", $errors));
 		}
 
-		
+
 
 		if ($this->_layout == 'edit')
 		{
