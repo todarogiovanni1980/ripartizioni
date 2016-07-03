@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version    CVS: 1.0.0
+ * @version    CVS: 1.0.4
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -35,6 +35,12 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 		// Set the user id for the user to edit in the session.
 		$app->setUserState('com_tgriparti.edit.ricevuta.id', $editId);
 
+		// modifica per gestire la finestra modale
+		if ($app->input->getWord('return')) {
+	    $app->setUserState('com_tgriparti.edit.ricevuta.personalvars.return', $app->input->getVar('return'));
+			$app->setUserState('com_tgriparti.edit.ricevuta.personalvars.condominio', $app->input->getInt('condominio'));
+	  }
+
 		// Get the model.
 		$model = $this->getModel('RicevutaForm', 'TgripartiModel');
 
@@ -50,8 +56,13 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 			$model->checkin($previousId);
 		}
 
-		// Redirect to the edit screen.
-		$this->setRedirect(JRoute::_('index.php?option=com_tgriparti&view=ricevutaform&layout=edit', false));
+		if ($app->input->getVar('tmpl', null, 'string')) {
+			// Redirect to the edit screen.
+			$this->setRedirect(JRoute::_('index.php?option=com_tgriparti&view=ricevutaform&layout=edit&tmpl=component', false));
+		} else {
+			// Redirect to the edit screen.
+			$this->setRedirect(JRoute::_('index.php?option=com_tgriparti&view=ricevutaform&layout=edit', false));
+		}
 	}
 
 	/**
@@ -246,6 +257,7 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 
 		// Clear the profile id from the session.
 		$app->setUserState('com_tgriparti.edit.ricevuta.id', null);
+
 
 		// Redirect to the list screen.
 		$this->setMessage(JText::_('COM_TGRIPARTI_ITEM_DELETED_SUCCESSFULLY'));

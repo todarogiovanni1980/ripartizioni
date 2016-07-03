@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    CVS: 1.0.3
+ * @version    CVS: 1.0.4
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -8,6 +8,8 @@
  */
 // No direct access
 defined('_JEXEC') or die;
+
+JHTML::_('behavior.modal');
 
 $canEdit = JFactory::getUser()->authorise('core.edit', 'com_tgriparti');
 if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti')) {
@@ -142,10 +144,10 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti'
 									<?php if ($canEdit || $canDelete): ?>
 						<td class="center">
 							<?php if ($canEdit): ?>
-								<a href="<?php echo JRoute::_('index.php?option=com_tgriparti&task=ricevutaform.edit&id=' . $item->id, false, 2); ?>" class="btn btn-mini" type="button"><i class="icon-edit" ></i></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_tgriparti&task=ricevutaform.edit&id=' . $item->id .'return='. urlencode(base64_encode(JURI::getInstance()->toString(array('path','query')))), false, 2); ?>" class="btn btn-mini" type="button"><i class="icon-edit" ></i></a>
 							<?php endif; ?>
 							<?php if ($canDelete): ?>
-								<a href="<?php echo JRoute::_('index.php?option=com_tgriparti&task=ricevutaform.remove&id=' . $item->id, false, 2); ?>" class="btn btn-mini delete-button" type="button"><i class="icon-trash" ></i></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_tgriparti&task=ricevutaform.remove&id=' . $item->id.'return='. urlencode(base64_encode(JURI::getInstance()->toString(array('path','query')))), false, 2); ?>" class="btn btn-mini delete-button" type="button"><i class="icon-trash" ></i></a>
 							<?php endif; ?>
 						</td>
 					<?php endif; ?>
@@ -156,8 +158,8 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti'
 		</table>
 
 		<?php if ($canCreate) : ?>
-			<a href="<?php echo JRoute::_('index.php?option=com_tgriparti&task=ricevutaform.edit&id=0', false, 2); ?>"
-				 class="btn btn-success btn-small"><i
+			<a href="<?php echo JRoute::_('index.php?option=com_tgriparti&task=ricevutaform.edit&id=0&tmpl=component&condomino='. $this->item->id .'&amp;return='. urlencode(base64_encode(JURI::getInstance()->toString(array('path','query')))), false, 2); ?>"
+				 class="btn btn-success btn-small modal" rel="{handler: 'iframe'}""><i
 					class="icon-plus"></i>
 				<?php echo JText::_('COM_TGRIPARTI_ADD_ITEM'); ?></a>
 		<?php endif; ?>
@@ -184,7 +186,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti'
 		}
 	</script>
 	<?php endif; ?>
-	
+
 	<?php
 else:
 	echo JText::_('COM_TGRIPARTI_ITEM_NOT_LOADED');

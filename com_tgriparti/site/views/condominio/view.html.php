@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version    CVS: 1.0.3
+ * @version    CVS: 1.0.4
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -45,9 +45,13 @@ class TgripartiViewCondominio extends JViewLegacy
 		$this->item   = $this->get('Data');
 		$this->params = $app->getParams('com_tgriparti');
 
-		//istanza della classe modello ricevute
+		// Includo il percorso dei modelli del mio componente
 		JModelLegacy::addIncludePath(JPATH_SITE.'/components/com_tgriparti/models');
+		// istanzio la classe del modello ricevute
 		$modelRicevute = JModelLegacy::getInstance( 'ricevute', 'tgripartiModel' );
+		// imposto il filtro per il condominio visualizzato
+		$modelRicevute->setState("filter.condominio",$this->item->id);
+		// prendo tutte le ricevute
 		$this->ricevute = $modelRicevute->getItems();
 
 		if (!empty($this->item))
