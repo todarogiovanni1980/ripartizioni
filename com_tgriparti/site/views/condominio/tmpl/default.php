@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    CVS: 1.0.6
+ * @version    CVS: 1.0.7
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -8,8 +8,17 @@
  */
 // No direct access
 defined('_JEXEC') or die;
-
 JHTML::_('behavior.modal');
+
+$user       = JFactory::getUser();
+$userId     = $user->get('id');
+$listOrder  = $this->state->get('list.ordering');
+$listDirn   = $this->state->get('list.direction');
+$canCreate  = $user->authorise('core.create', 'com_tgriparti');
+$canEdit    = $user->authorise('core.edit', 'com_tgriparti');
+$canCheckin = $user->authorise('core.manage', 'com_tgriparti');
+$canChange  = $user->authorise('core.edit.state', 'com_tgriparti');
+$canDelete  = $user->authorise('core.delete', 'com_tgriparti');
 
 $canEdit = JFactory::getUser()->authorise('core.edit', 'com_tgriparti');
 if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti')) {
