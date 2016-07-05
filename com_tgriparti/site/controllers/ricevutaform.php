@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version    CVS: 1.0.4
+ * @version    CVS: 1.0.7
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -156,7 +156,12 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 		$item = $menu->getActive();
 		$url  = (empty($item->link) ? 'index.php?option=com_tgriparti&view=ricevute' : $item->link);
 		$this->setRedirect(JRoute::_($url, false));
-
+		// Gestione della finestra modale
+		if($return=$app->input->get('return')){
+			$app->setUserState('com_tgriparti.edit.ricevuta.personalvars', null);
+			echo '<script type="text/javascript"> parent.location.href="' . base64_decode($return) . '";</script>';
+			exit();
+		}
 		// Flush the data from the session.
 		$app->setUserState('com_tgriparti.edit.ricevuta.data', null);
 	}
@@ -172,6 +177,13 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 	{
 		$app = JFactory::getApplication();
 
+		// Gestione della finestra modale
+		if($return=$app->input->get('return')){
+			$app->setUserState('com_tgriparti.edit.ricevuta.personalvars', null);
+			echo '<script type="text/javascript"> parent.location.href="' . base64_decode($return) . '";</script>';
+			exit();
+		}
+		
 		// Get the current edit id.
 		$editId = (int) $app->getUserState('com_tgriparti.edit.ricevuta.id');
 
