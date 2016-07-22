@@ -12,7 +12,7 @@
    <maintainer>Todaro Giovanni</maintainer>
    <maintainerurl>http://www.todarogiovanni.eu</maintainerurl>
    <tags>
-     <tag>dev</tag>
+     <tag>stable</tag>
    </tags>
-   <targetplatform name="joomla" version="3.*"/>
+   <targetplatform name="joomla" version="3.6"/>
 </update>
