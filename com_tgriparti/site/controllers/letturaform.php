@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version    CVS: 1.0.0
+ * @version    CVS: 1.0.4
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -31,9 +31,16 @@ class TgripartiControllerLetturaForm extends JControllerForm
 		// Get the previous edit id (if any) and the current edit id.
 		$previousId = (int) $app->getUserState('com_tgriparti.edit.lettura.id');
 		$editId     = $app->input->getInt('id', 0);
+		$nominativoId     = $app->input->getInt('nominativo', 0);
+		$ricevutaId     = $app->input->getInt('ricevuta', 0);
 
 		// Set the user id for the user to edit in the session.
 		$app->setUserState('com_tgriparti.edit.lettura.id', $editId);
+
+		// modifica per gestire la finestra modale
+		if ($app->input->getWord('return')) {
+	    $app->setUserState('com_tgriparti.edit.letturaform.personalvars.return', $app->input->getVar('return'));
+	  }
 
 		// Get the model.
 		$model = $this->getModel('LetturaForm', 'TgripartiModel');
@@ -50,8 +57,13 @@ class TgripartiControllerLetturaForm extends JControllerForm
 			$model->checkin($previousId);
 		}
 
-		// Redirect to the edit screen.
-		$this->setRedirect(JRoute::_('index.php?option=com_tgriparti&view=letturaform&layout=edit', false));
+		if ($app->input->getVar('tmpl', null, 'string')) {
+			// Redirect to the edit screen.
+			$this->setRedirect(JRoute::_("index.php?option=com_tgriparti&view=letturaform&layout=edit&tmpl=component&nominativo=$nominativoId&ricevuta=$ricevutaId", false));
+		} else {
+			// Redirect to the edit screen.
+			$this->setRedirect(JRoute::_('index.php?option=com_tgriparti&view=letturaform&layout=edit', false));		}
+
 	}
 
 	/**
@@ -139,12 +151,21 @@ class TgripartiControllerLetturaForm extends JControllerForm
 		// Clear the profile id from the session.
 		$app->setUserState('com_tgriparti.edit.lettura.id', null);
 
+		// Gestione della finestra modale
+		if($return=$app->input->get('return')){
+    	$app->setUserState('com_tgriparti.edit.letturaform.personalvars', null);
+    	echo '<script type="text/javascript"> parent.location.href="' . base64_decode($return) . '";</script>';
+    	exit();
+	 	}
+
 		// Redirect to the list screen.
 		$this->setMessage(JText::_('COM_TGRIPARTI_ITEM_SAVED_SUCCESSFULLY'));
 		$menu = JFactory::getApplication()->getMenu();
 		$item = $menu->getActive();
 		$url  = (empty($item->link) ? 'index.php?option=com_tgriparti&view=letture' : $item->link);
 		$this->setRedirect(JRoute::_($url, false));
+
+
 
 		// Flush the data from the session.
 		$app->setUserState('com_tgriparti.edit.lettura.data', null);

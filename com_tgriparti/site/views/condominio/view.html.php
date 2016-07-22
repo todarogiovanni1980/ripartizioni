@@ -45,13 +45,10 @@ class TgripartiViewCondominio extends JViewLegacy
 		$this->item   = $this->get('Data');
 		$this->params = $app->getParams('com_tgriparti');
 
-		// Includo il percorso dei modelli del mio componente
+		//istanza della classe modello ricevute
 		JModelLegacy::addIncludePath(JPATH_SITE.'/components/com_tgriparti/models');
-		// istanzio la classe del modello ricevute
 		$modelRicevute = JModelLegacy::getInstance( 'ricevute', 'tgripartiModel' );
-		// imposto il filtro per il condominio visualizzato
 		$modelRicevute->setState("filter.condominio",$this->item->id);
-		// prendo tutte le ricevute
 		$this->ricevute = $modelRicevute->getItems();
 
 		if (!empty($this->item))

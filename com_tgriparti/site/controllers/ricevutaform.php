@@ -1,7 +1,7 @@
-<?php
+w<?php
 
 /**
- * @version    CVS: 1.0.7
+ * @version    CVS: 1.0.4
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -38,7 +38,6 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 		// modifica per gestire la finestra modale
 		if ($app->input->getWord('return')) {
 	    $app->setUserState('com_tgriparti.edit.ricevuta.personalvars.return', $app->input->getVar('return'));
-			$app->setUserState('com_tgriparti.edit.ricevuta.personalvars.condominio', $app->input->getInt('condominio'));
 	  }
 
 		// Get the model.
@@ -156,14 +155,17 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 		$item = $menu->getActive();
 		$url  = (empty($item->link) ? 'index.php?option=com_tgriparti&view=ricevute' : $item->link);
 		$this->setRedirect(JRoute::_($url, false));
+
 		// Gestione della finestra modale
 		if($return=$app->input->get('return')){
-			$app->setUserState('com_tgriparti.edit.ricevuta.personalvars', null);
-			echo '<script type="text/javascript"> parent.location.href="' . base64_decode($return) . '";</script>';
-			exit();
-		}
+    	$app->setUserState('com_tgriparti.edit.ricevuta.personalvars', null);
+    	echo '<script type="text/javascript"> parent.location.href="' . base64_decode($return) . '";</script>';
+    	exit();
+	 	}
+
 		// Flush the data from the session.
 		$app->setUserState('com_tgriparti.edit.ricevuta.data', null);
+
 	}
 
 	/**
@@ -177,13 +179,14 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 	{
 		$app = JFactory::getApplication();
 
+
 		// Gestione della finestra modale
 		if($return=$app->input->get('return')){
 			$app->setUserState('com_tgriparti.edit.ricevuta.personalvars', null);
 			echo '<script type="text/javascript"> parent.location.href="' . base64_decode($return) . '";</script>';
 			exit();
 		}
-		
+
 		// Get the current edit id.
 		$editId = (int) $app->getUserState('com_tgriparti.edit.ricevuta.id');
 
@@ -199,6 +202,9 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 		$menu = JFactory::getApplication()->getMenu();
 		$item = $menu->getActive();
 		$url  = (empty($item->link) ? 'index.php?option=com_tgriparti&view=ricevute' : $item->link);
+
+
+
 		$this->setRedirect(JRoute::_($url, false));
 	}
 
@@ -270,6 +276,12 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 		// Clear the profile id from the session.
 		$app->setUserState('com_tgriparti.edit.ricevuta.id', null);
 
+		// Gestione della finestra modale
+		if($return=$app->input->get('return')){
+    	$app->setUserState('com_tgriparti.edit.ricevuta.personalvars', null);
+    	echo '<script type="text/javascript"> parent.location.href="' . base64_decode($return) . '";</script>';
+    	exit();
+	 	}
 
 		// Redirect to the list screen.
 		$this->setMessage(JText::_('COM_TGRIPARTI_ITEM_DELETED_SUCCESSFULLY'));
@@ -280,5 +292,6 @@ class TgripartiControllerRicevutaForm extends JControllerForm
 
 		// Flush the data from the session.
 		$app->setUserState('com_tgriparti.edit.ricevuta.data', null);
+
 	}
 }

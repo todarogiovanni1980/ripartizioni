@@ -49,13 +49,16 @@ class TgripartiViewLetturaform extends JViewLegacy
 		$this->canSave = $this->get('CanSave');
 		$this->form		= $this->get('Form');
 
+		$this->nominativoId     = $app->input->getInt('nominativo', 0);
+		$this->ricevutaId     = $app->input->getInt('ricevuta', 0);
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
 			throw new Exception(implode("\n", $errors));
 		}
 
-		
+
 
 		$this->_prepareDocument();
 

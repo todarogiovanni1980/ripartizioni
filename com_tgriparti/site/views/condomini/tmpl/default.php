@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    CVS: 1.0.5
+ * @version    CVS: 1.0.2
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche

@@ -26,34 +26,33 @@ $doc->addScript(JUri::base() . '/media/com_tgriparti/js/form.js');
 	if (jQuery === 'undefined') {
 		document.addEventListener("DOMContentLoaded", function (event) {
 			jQuery('#form-condominio').submit(function (event) {
-
+				
 			});
 
-
+			
 		});
 	} else {
 		jQuery(document).ready(function () {
 			jQuery('#form-condominio').submit(function (event) {
-
+				
 			});
 
-
+			
 		});
 	}
 </script>
 
 <div class="condominio-edit front-end-edit">
 	<?php if (!empty($this->item->id)): ?>
-		<h1>Modifica <?php echo $this->item->id; ?></h1>
-		<h2><?php echo $this->item->via; ?></h2>
+		<h1>Edit <?php echo $this->item->id; ?></h1>
 	<?php else: ?>
-		<h1>Inserimento nuovo condominio</h1>
+		<h1>Add</h1>
 	<?php endif; ?>
 
 	<form id="form-condominio"
 		  action="<?php echo JRoute::_('index.php?option=com_tgriparti&task=condominio.save'); ?>"
 		  method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
-
+		
 	<input type="hidden" name="jform[id]" value="<?php echo $this->item->id; ?>" />
 
 	<input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>" />

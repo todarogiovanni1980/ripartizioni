@@ -17,6 +17,8 @@ defined('_JEXEC') or die;
  */
 class TgripartiControllerRicevuta extends JControllerLegacy
 {
+
+
 	/**
 	 * Method to check out an item for editing and redirect to the edit form.
 	 *
@@ -32,8 +34,14 @@ class TgripartiControllerRicevuta extends JControllerLegacy
 		$previousId = (int) $app->getUserState('com_tgriparti.edit.ricevuta.id');
 		$editId     = $app->input->getInt('id', 0);
 
+
 		// Set the user id for the user to edit in the session.
 		$app->setUserState('com_tgriparti.edit.ricevuta.id', $editId);
+
+		// modifica per gestire la finestra modale
+		if ($app->input->getWord('return')) {
+	    $app->setUserState('com_tgriparti.edit.ricevuta.personalvars.return', $app->input->getVar('return'));
+	  }
 
 		// Get the model.
 		$model = $this->getModel('Ricevuta', 'TgripartiModel');

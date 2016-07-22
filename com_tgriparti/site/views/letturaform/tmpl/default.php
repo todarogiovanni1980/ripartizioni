@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    CVS: 1.0.0
+ * @version    CVS: 1.0.4
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -19,6 +19,7 @@ $lang = JFactory::getLanguage();
 $lang->load('com_tgriparti', JPATH_SITE);
 $doc = JFactory::getDocument();
 $doc->addScript(JUri::base() . '/media/com_tgriparti/js/form.js');
+$return = JFactory::getApplication()->getUserState('com_tgriparti.edit.letturaform.personalvars.return','');
 
 
 ?>
@@ -26,10 +27,10 @@ $doc->addScript(JUri::base() . '/media/com_tgriparti/js/form.js');
 	if (jQuery === 'undefined') {
 		document.addEventListener("DOMContentLoaded", function (event) {
 			jQuery('#form-lettura').submit(function (event) {
-				
+
 			});
 
-			
+
 			jQuery('input:hidden.nominativo').each(function(){
 				var name = jQuery(this).attr('name');
 				if(name.indexOf('nominativohidden')){
@@ -48,10 +49,10 @@ $doc->addScript(JUri::base() . '/media/com_tgriparti/js/form.js');
 	} else {
 		jQuery(document).ready(function () {
 			jQuery('#form-lettura').submit(function (event) {
-				
+
 			});
 
-			
+
 			jQuery('input:hidden.nominativo').each(function(){
 				var name = jQuery(this).attr('name');
 				if(name.indexOf('nominativohidden')){
@@ -72,15 +73,15 @@ $doc->addScript(JUri::base() . '/media/com_tgriparti/js/form.js');
 
 <div class="lettura-edit front-end-edit">
 	<?php if (!empty($this->item->id)): ?>
-		<h1>Edit <?php echo $this->item->id; ?></h1>
+		<h1>Modifica lettura contatore <?php echo $this->item->id; ?></h1>
 	<?php else: ?>
-		<h1>Add</h1>
+		<h1>Inserimento lettura contatore</h1>
 	<?php endif; ?>
 
 	<form id="form-lettura"
 		  action="<?php echo JRoute::_('index.php?option=com_tgriparti&task=lettura.save'); ?>"
 		  method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
-		
+
 	<input type="hidden" name="jform[id]" value="<?php echo $this->item->id; ?>" />
 
 	<input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>" />
@@ -101,6 +102,13 @@ $doc->addScript(JUri::base() . '/media/com_tgriparti/js/form.js');
 	<?php else: ?>
 		<input type="hidden" name="jform[modified_by]" value="<?php echo $this->item->modified_by; ?>" />
 	<?php endif; ?>
+
+<?php
+if ($this->nominativoId) { ?>
+	<input type="hidden" name="jform[nominativo]" value="<?php echo $this->nominativoId; ?>"/>
+	<input type="hidden" name="jform[ripartizione]" value="<?php echo $this->ricevutaId; ?>"/>
+<?php } else { ?>
+
 	<?php echo $this->form->renderField('nominativo'); ?>
 
 	<?php foreach((array)$this->item->nominativo as $value): ?>
@@ -108,7 +116,7 @@ $doc->addScript(JUri::base() . '/media/com_tgriparti/js/form.js');
 			<input type="hidden" class="nominativo" name="jform[nominativohidden][<?php echo $value; ?>]" value="<?php echo $value; ?>" />
 		<?php endif; ?>
 	<?php endforeach; ?>
-	<?php echo $this->form->renderField('lettura'); ?>
+
 
 	<?php echo $this->form->renderField('ripartizione'); ?>
 
@@ -117,6 +125,11 @@ $doc->addScript(JUri::base() . '/media/com_tgriparti/js/form.js');
 			<input type="hidden" class="ripartizione" name="jform[ripartizionehidden][<?php echo $value; ?>]" value="<?php echo $value; ?>" />
 		<?php endif; ?>
 	<?php endforeach; ?>
+<?php } ?>
+
+
+<?php echo $this->form->renderField('lettura'); ?>
+
 		<div class="control-group">
 			<div class="controls">
 
@@ -132,7 +145,12 @@ $doc->addScript(JUri::base() . '/media/com_tgriparti/js/form.js');
 				</a>
 			</div>
 		</div>
+<?php
 
+?>
+
+
+		<input type="hidden" name="return" value="<?php echo $return; ?>" />
 		<input type="hidden" name="option" value="com_tgriparti"/>
 		<input type="hidden" name="task"
 			   value="letturaform.save"/>
