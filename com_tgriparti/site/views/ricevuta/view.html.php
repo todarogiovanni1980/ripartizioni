@@ -127,6 +127,20 @@ class TgripartiViewRicevuta extends JViewLegacy
 				$i11=$f11-$g11;
 			}
 			$nominativo->tariffaBase=round($i11*1.905744,2);
+
+			$h11=0;
+			if ($e11>23){
+				$h11=8;
+			} else {
+				$h11=$e11-$f11;
+			}
+
+			if($e11<=33){
+				$j11=$e11-$f11-$h11;
+			} else {
+				$j11=10;
+			}
+			$nominativo->primoscaglione=2.471495*$j11;
 		}
 
 		// lettura precedente
