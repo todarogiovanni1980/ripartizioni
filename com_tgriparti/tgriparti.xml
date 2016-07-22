@@ -7,7 +7,7 @@
     <author>Todaro Giovanni</author>
     <authorEmail>info@todarogiovanni.eu</authorEmail>
     <authorUrl>http://www.todarogiovanni.eu</authorUrl>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <description>Gestione Ripartizioni condominiali spese acqua per amministratori di condominio</description>
 
     <scriptfile>script.php</scriptfile>

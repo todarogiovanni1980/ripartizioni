@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version    CVS: 1.0.4
+ * @version    CVS: 1.0.9
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -140,7 +140,7 @@ class TgripartiViewRicevuta extends JViewLegacy
 			} else {
 				$j11=10;
 			}
-			$nominativo->primoscaglione=2.471495*$j11;
+			$nominativo->primasoglia=2.471495*$j11;
 		}
 
 		// lettura precedente

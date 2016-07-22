@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    CVS: 1.0.4
+ * @version    CVS: 1.0.9
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -161,7 +161,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti'
 												<td name="Totale dei Consumi"style="text-align:center"><?php echo $item->consumoTotale>0 ? $item->consumoTotale	 : "N.D." ;?></td>
 												<td name="Tariffa Agevolata" style="text-align:center"><?php echo $item->tariffaAgevolata>0 ? $item->tariffaAgevolata	 : "N.D." ;?></td>
 												<td name="Tariffa Base" style="text-align:center"><?php echo $item->tariffaBase>0 ? $item->tariffaBase	 : "N.D." ;?></td>
-												<td name="Prima Soglia" style="text-align:center"><?php echo $item->primoscaglione>0 ? $item->primoscaglione	 : "N.D." ;?> </td>
+												<td name="Prima Soglia" style="text-align:center"><?php echo $item->primasoglia>0 ? $item->primoscaglione	 : "N.D." ;?> </td>
 												<td name="Seconda Soglia" style="text-align:center">N.D.</td>
 												<td name="Terza Soglia" style="text-align:center">N.D.</td>
 
