@@ -140,7 +140,7 @@ class TgripartiViewRicevuta extends JViewLegacy
 			} else {
 				$j11=10;
 			}
-			$nominativo->primasoglia=2.471495*$j11;
+			$nominativo->primasoglia=round($j11*2.471495,2);
 		}
 
 		// lettura precedente
