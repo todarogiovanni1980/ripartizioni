@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    CVS: 1.0.9
+ * @version    CVS: 1.5
  * @package    Com_Tgriparti
  * @author     Todaro Giovanni <Info@todarogiovanni.eu>
  * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
@@ -69,7 +69,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti'
 		<a class="btn" href="<?php echo JRoute::_('index.php?option=com_tgriparti&task=ricevuta.remove&id=' . $this->item->id, false, 2); ?>"><?php echo JText::_("COM_TGRIPARTI_DELETE_ITEM"); ?></a>
 	<?php endif; ?>
 
-	<a href="" class="btn modal" rel="{handler:'iframe'}">
+	<a href="index.php?option=com_tgriparti&task=stampaRipartizione" class="btn modal" rel="{handler:'iframe'}">
 		<i class="icon-print"></i>
 		<?php echo JText::_('Stampa Ripartizione'); ?>
 	</a>
@@ -119,10 +119,9 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti'
 												 3° supero<br/>>43<br/>€3,590603
 												</th>
 
-
-
-
-
+												<th class='' style="text-align:center">
+												 Totale<br/>Acqua
+												</th>
 
 															<?php if ($canEdit || $canDelete): ?>
 													<th class="center">
@@ -164,6 +163,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti'
 												<td name="Prima Soglia" style="text-align:center"><?php echo $item->primasoglia>0 ? $item->primasoglia	 : "N.D." ;?> </td>
 												<td name="Seconda Soglia" style="text-align:center"><?php echo $item->secondasoglia>0 ? $item->secondasoglia	 : "N.D." ;?></td>
 												<td name="Terza Soglia" style="text-align:center"><?php echo $item->terzasoglia>0 ? $item->terzasoglia	 : "N.D." ;?></td>
+												<td name="Totale Acqua" style="text-align:center"><?php echo $item->totaleAcqua	;?></td>
 
 
 
@@ -175,7 +175,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_tgriparti'
 														<?php if ($canDelete): ?>
 															<a href="<?php echo JRoute::_('index.php?option=com_tgriparti&task=nominativoform.remove&id=' . $item->id, false, 2); ?>" class="btn btn-mini delete-button" type="button"><i class="icon-trash" ></i></a>
 														<?php endif; ?>
-														<a href="" class="btn modal btn-mini" > <i class="icon-print"></i> </a>
+														<a  href="index.php?option=com_tgriparti&task=stampaRicevuta&numero=<?php echo $i+1;?>&nominativo=<?php echo $this->escape($item->nome); ?>&consumo=<?php echo $item->consumo; ?>&letturaprecedente=<?php echo $item->letturaPrecedente; ?>&letturaattuale=<?php echo $item->letturaAttuale; ?>&importo=<?php echo $item->totaleAcqua; ?>&dataricevuta=<?php echo $this->item->data; ?>&ricevuta=<?php echo $this->item->nome; ?>&condominio=<?php echo $this->item->condominio; ?>&ricevutaid=<?php echo $this->item->id; ?>&condominioId=2" class="btn modal btn-mini" rel="{handler:'iframe'}" > <i class="icon-print"></i> </a>
 													</td>
 												<?php endif; ?>
 

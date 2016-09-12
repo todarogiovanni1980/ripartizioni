@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @version    CVS: 1.0.9
- * @package    Com_Tgriparti
- * @author     Todaro Giovanni <Info@todarogiovanni.eu>
- * @copyright  2016 Todaro Giovanni - Consiglio Nazionale delle Ricerche -  Istituto per le Tecnologie Didattiche
+ * @version    CVS: 1.5
+ * @package    com_tgriparti
+ * @author     Todaro Giovanni <Info@todarogiovanni.it>
+ * @copyright  2016 Todaro Giovanni
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access
@@ -36,145 +36,173 @@ class TgripartiViewRicevuta extends JViewLegacy
 	 *
 	 * @throws Exception
 	 */
-	public function display($tpl = null)
-	{
-		$app  = JFactory::getApplication();
-		$user = JFactory::getUser();
+	 public function display($tpl = null)
+	 {
+ 		$app  = JFactory::getApplication();
+ 		$user = JFactory::getUser();
 
-		$this->state  = $this->get('State');
-		$this->item   = $this->get('Data');
-		$this->params = $app->getParams('com_tgriparti');
-		$condominioId     = $app->input->getInt('condominioId', 0);
-
-
-		//istanza della classe modello nominativi
-		JModelLegacy::addIncludePath(JPATH_SITE.'/components/com_tgriparti/models');
-		$modelNominativi = JModelLegacy::getInstance( 'nominativi', 'tgripartiModel' );
-		$modelNominativi->setState("filter.condominio",$condominioId);
-		$this->nominativi = $modelNominativi->getItems();
-
-		// lettura precedente
-		// query sql per prendere il penultimo
-		//		select * from o9xqg_tgriparti_ricevuta where condominio=1 order by data DESC limit 1,1
-		$db = JFactory::getDbo();
-		$queryRicevuta = $db->getQuery(true);
-		$queryRicevuta
-			->select('*')
-			->from($db->quoteName('#__tgriparti_ricevuta'))
-			->where($db->quoteName('condominio') . ' = ' . $condominioId)
-			->order('data DESC '.' limit 1,1');
-
-		$db->setQuery($queryRicevuta);
-		//JFactory::getApplication()->enqueueMessage("$queryRicevuta");
-		$resultRicevuta = $db->loadObject();
-		//throw new Exception($queryRicevuta);
-		if ($resultRicevuta) {
-			$idRipartizionePrecedente = $resultRicevuta->id;
-			//JFactory::getApplication()->enqueueMessage("Ricevuta precedente $idRipartizionePrecedente");
-		} else {
-			JFactory::getApplication()->enqueueMessage("Nessuna Ricevuta precedente...");
-		}
+ 		$this->state  = $this->get('State');
+ 		$this->item   = $this->get('Data');
+ 		$this->params = $app->getParams('com_tgriparti');
+ 		$condominioId     = $app->input->getInt('condominioId', 0);
 
 
-		$textValue = array();
-		foreach ($this->nominativi as $nominativo)
-		{
-			$db = JFactory::getDbo();
-			$query = $db->getQuery(true);
-			$query
-				->select('`lettura`,id')
-				->from($db->quoteName('#__tgriparti_lettura'))
-				->where($db->quoteName('nominativo') . ' = ' . $nominativo->id)
-				->where($db->quoteName('ripartizione') . ' = ' . $this->item->id);
-			$db->setQuery($query);
-			$result = $db->loadObject();
-			//throw new Exception($query);
-			if ($result) {
-				$nominativo->letturaAttuale  = $result->lettura;
-				$nominativo->letturaAttualeID= $result->id;
-			}
+ 		//istanza della classe modello nominativi
+ 		JModelLegacy::addIncludePath(JPATH_SITE.'/components/com_tgriparti/models');
+ 		$modelNominativi = JModelLegacy::getInstance( 'nominativi', 'tgripartiModel' );
+ 		$modelNominativi->setState("filter.condominio",$condominioId);
+ 		$this->nominativi = $modelNominativi->getItems();
 
-			$queryLetturaPrecedente = $db->getQuery(true);
-			$queryLetturaPrecedente
-				->select('`lettura`,id')
-				->from($db->quoteName('#__tgriparti_lettura'))
-				->where($db->quoteName('nominativo') . ' = ' . $nominativo->id)
-				->where($db->quoteName('ripartizione') . ' = ' . $idRipartizionePrecedente);
-			$db->setQuery($queryLetturaPrecedente);
-			$resultLetturaPrecedente = $db->loadObject();
-			//throw new Exception($query);
-			if ($resultLetturaPrecedente) {
-				$nominativo->letturaPrecedente  = $resultLetturaPrecedente->lettura;
-				$nominativo->letturaPrecedenteID= $resultLetturaPrecedente->id;
-			}
+ 		// lettura precedente
+ 		// query sql per prendere il penultimo
+ 		//		select * from o9xqg_tgriparti_ricevuta where condominio=1 order by data DESC limit 1,1
+ 		$db = JFactory::getDbo();
+ 		$queryRicevuta = $db->getQuery(true);
+ 		$queryRicevuta
+ 			->select('*')
+ 			->from($db->quoteName('#__tgriparti_ricevuta'))
+ 			->where($db->quoteName('condominio') . ' = ' . $condominioId)
+ 			->order('data DESC '.' limit 1,1');
 
-			$nominativo->consumo = $nominativo->letturaAttuale - $nominativo->letturaPrecedente;
-			$nominativo->consumoTotale = $nominativo->consumo;
-
-			$e11=$nominativo->consumoTotale;
-			$f11=$e11;
-			if ($f11>=15){
-				$g11 = 15;
-			} else {
-				$g11 = $e11;
-			}
-			$nominativo->tariffaAgevolata=round($g11*1.240477,2) ;
-
-			$i11=0;
-			if ($f11>23) {
-				$i11=8;
-			} else {
-				$i11=$f11-$g11;
-			}
-			$nominativo->tariffaBase=round($i11*1.905744,2);
-
-			$h11=0;
-			if ($e11>23){
-				$h11=8;
-			} else {
-				$h11=$e11-$f11;
-			}
-
-			if($e11<=33){
-				$j11=$e11-$f11-$h11;
-			} else {
-				$j11=10;
-			}
-			$nominativo->primasoglia=round($j11*2.471495,2);
-		}
-
-		// lettura precedente
-		// query sql per prendere il penultimo
-//		select * from o9xqg_tgriparti_ricevuta where condominio=1 order by data DESC limit 1,1
+ 		$db->setQuery($queryRicevuta);
+ 		//JFactory::getApplication()->enqueueMessage("$queryRicevuta");
+ 		$resultRicevuta = $db->loadObject();
+ 		//throw new Exception($queryRicevuta);
+ 		if ($resultRicevuta) {
+ 			$idRipartizionePrecedente = $resultRicevuta->id;
+ 			//JFactory::getApplication()->enqueueMessage("Ricevuta precedente $idRipartizionePrecedente");
+ 		} else {
+ 			JFactory::getApplication()->enqueueMessage("Nessuna Ricevuta precedente...");
+ 		}
 
 
-		if (!empty($this->item))
-		{
-			$this->form = $this->get('Form');
-		}
+ 		$textValue = array();
+ 		foreach ($this->nominativi as $nominativo)
+ 		{
+ 			$db = JFactory::getDbo();
+ 			$query = $db->getQuery(true);
+ 			$query
+ 				->select('`lettura`,id')
+ 				->from($db->quoteName('#__tgriparti_lettura'))
+ 				->where($db->quoteName('nominativo') . ' = ' . $nominativo->id)
+ 				->where($db->quoteName('ripartizione') . ' = ' . $this->item->id);
+ 			$db->setQuery($query);
+ 			$result = $db->loadObject();
+ 			//throw new Exception($query);
+ 			if ($result) {
+ 				$nominativo->letturaAttuale  = $result->lettura;
+ 				$nominativo->letturaAttualeID= $result->id;
+ 			}
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			throw new Exception(implode("\n", $errors));
-		}
+ 			$queryLetturaPrecedente = $db->getQuery(true);
+ 			$queryLetturaPrecedente
+ 				->select('`lettura`,id')
+ 				->from($db->quoteName('#__tgriparti_lettura'))
+ 				->where($db->quoteName('nominativo') . ' = ' . $nominativo->id)
+ 				->where($db->quoteName('ripartizione') . ' = ' . $idRipartizionePrecedente);
+ 			$db->setQuery($queryLetturaPrecedente);
+ 			$resultLetturaPrecedente = $db->loadObject();
+ 			//throw new Exception($query);
+ 			if ($resultLetturaPrecedente) {
+ 				$nominativo->letturaPrecedente  = $resultLetturaPrecedente->lettura;
+ 				$nominativo->letturaPrecedenteID= $resultLetturaPrecedente->id;
+ 			}
+
+ 			$nominativo->consumo = $nominativo->letturaAttuale - $nominativo->letturaPrecedente;
+ 			$nominativo->consumoTotale = $nominativo->consumo;
+
+ 			//JFactory::getApplication()->enqueueMessage("nome... " . $nominativo->nome,"error");
+ 			$c=$nominativo->letturaAttuale;
+ 			$d=$nominativo->letturaPrecedente;
+ 			$e=$c-$d;
+ 			$f=0;
+ 			if($e>=15){
+ 				$f=15;
+ 			} else {
+ 				$f=$e;
+ 			}
+ 			//JFactory::getApplication()->enqueueMessage("f... $f","error" );
+ 			$nominativo->tariffaAgevolata=round($f*1.240477,2) ;
+
+ 			$h=0;
+ 			if($e>23){
+ 				$h=8;
+ 			} else {
+ 				$h=$e-$f;
+ 			}
+ 			//JFactory::getApplication()->enqueueMessage("h... $h","error" );
+ 			$nominativo->tariffaBase=round($h*1.905744,2);
+
+ 			// Prima soglia
+ 			$j=0;
+ 			if($e<33){
+ 				$j=$e-$f-$h;
+ 			} else {
+ 				$j=10;
+ 			}
+ 			//JFactory::getApplication()->enqueueMessage("j... $j","error" );
+ 			$nominativo->primasoglia=round($j*2.471495,2);
+
+ 			// Seconda soglia
+ 			$l=0;
+ 			if($e<43){
+ 				$l=$e-$f-$h-$j;
+ 			} else {
+ 				$l=10;
+ 			}
+ 			//JFactory::getApplication()->enqueueMessage("l... $l","error" );
+ 			$nominativo->secondasoglia=round($l*3.03105,2);
+
+ 			// Terza soglia
+ 			$n=0;
+ 			if($e>43){
+ 				$n=$e-$f-$h-$j-$l;
+ 			} else {
+ 				$n=0;
+ 			}
+ 			//JFactory::getApplication()->enqueueMessage("n... $n","error" );
+ 			$nominativo->terzasoglia=round($n*3.590603,2);
+
+ 			// Totale Acqua
+ 			$p=0;
+ 			$p=$nominativo->tariffaAgevolata+$nominativo->tariffaBase+$nominativo->primasoglia+$nominativo->secondasoglia+$nominativo->terzasoglia;
+ 			$nominativo->totaleAcqua=$p;
+
+
+ 		}
+
+ 		// lettura precedente
+ 		// query sql per prendere il penultimo
+ //		select * from o9xqg_tgriparti_ricevuta where condominio=1 order by data DESC limit 1,1
+
+
+ 		if (!empty($this->item))
+ 		{
+ 			$this->form = $this->get('Form');
+ 		}
+
+ 		// Check for errors.
+ 		if (count($errors = $this->get('Errors')))
+ 		{
+ 			throw new Exception(implode("\n", $errors));
+ 		}
 
 
 
-		if ($this->_layout == 'edit')
-		{
-			$authorised = $user->authorise('core.create', 'com_tgriparti');
+ 		if ($this->_layout == 'edit')
+ 		{
+ 			$authorised = $user->authorise('core.create', 'com_tgriparti');
 
-			if ($authorised !== true)
-			{
-				throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
-			}
-		}
+ 			if ($authorised !== true)
+ 			{
+ 				throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
+ 			}
+ 		}
 
-		$this->_prepareDocument();
+ 		$this->_prepareDocument();
 
-		parent::display($tpl);
-	}
+ 		parent::display($tpl);
+ 	}
 
 	/**
 	 * Prepares the document
