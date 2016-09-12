@@ -3,16 +3,16 @@
    <description>Sistema di gestione delle ripartizioni condominiali</description>
    <element>com_tgriparti</element>
    <type>component</type>
-   <version>1.0.9</version>
+   <version>1.5</version>
    <infourl title="Ripartizioni Condominiali">https://github.com/todarogiovanni1980/ripartizioni</infourl>
    <downloads>
-       <downloadurl type="full" format="zip">https://github.com/todarogiovanni1980/ripartizioni/raw/develop/com_tgriparti.zip</downloadurl>
+       <downloadurl type="full" format="zip">https://github.com/todarogiovanni1980/ripartizioni/archive/v1.5.zip</downloadurl>
    </downloads>
 
    <maintainer>Todaro Giovanni</maintainer>
-   <maintainerurl>http://www.todarogiovanni.eu</maintainerurl>
+   <maintainerurl>http://www.todarogiovanni.it</maintainerurl>
    <tags>
-     <tag>stable</tag>
+     <tag>dev</tag>
    </tags>
    <targetplatform name="joomla" version="3.6"/>
 </update>

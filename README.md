@@ -1,2 +1,2 @@
 # ripartizioni
-Estensione Joomla! Per gestire le ripartizioni AMAP per Amministratori di condominio
+Estensione Joomla! Per gestire le ripartizioni per Amministratori di condominio
